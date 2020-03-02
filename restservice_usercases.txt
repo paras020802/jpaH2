@@ -1,0 +1,42 @@
+localhost:8071/rest/metadata/service?table=employee
+{ID=INT, EMAIL_ADDRESS=VARCHAR, FIRST_NAME=VARCHAR, LAST_NAME=VARCHAR}
+localhost:8071/rest/metadata/service?header=first_name,last_name&table=employee
+{LAST_NAME=VARCHAR, FIRST_NAME=VARCHAR}
+
+localhost:8071/rest/metadata/service?header=first_name&table=employee
+{FIRST_NAME=VARCHAR}
+
+localhost:8071/rest/metadata/service?header=First_name&table=employee
+{FIRST_NAME=VARCHAR}
+
+localhost:8071/rest/metadata/service?header=s&table=employee ==> column not matching
+{} 
+
+===============================================
+localhost:8072/rest/data/extractor?query=select sd,sd from employee
+
+columns are not matching
+
+localhost:8072/rest/data/extractor?query=select first_name,last_name from employee
+
+[{"LAST_NAME":"c","FIRST_NAME":"b"}]
+
+localhost:8072/rest/data/extractor?query=select first_name from employee
+[{"FIRST_NAME":"b"}]
+
+localhost:8072/rest/data/extractor?query=select FIRST_NAME,last_Name from employee
+
+[{"LAST_NAME":"c","FIRST_NAME":"b"}]
+
+localhost:8072/rest/data/extractor?query=select *  from employee
+
+[{"EMAIL_ADDRESS":"a@email.com","ID":1,"LAST_NAME":"c","FIRST_NAME":"b"}]
+
+localhost:8072/rest/data/extractor?query=select FIRST_NAME,last_Name from employee where id=7 ==> id=7 no data present
+
+No result is found for this query
+
+
+localhost:8072/rest/data/extractor?query=select FIRST_NAME,last_Name fron employee where id=1 ==> from word is wrong here then next make it correct
+
+invalid query
